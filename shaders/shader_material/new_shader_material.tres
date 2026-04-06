@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://64vp4ur62ryp"]
+
+[ext_resource type="Shader" uid="uid://dij82ymr2jp0l" path="res://3d/test/cell-shading.gdshader" id="1_iseki"]
+[ext_resource type="Texture2D" uid="uid://cobj44f8mt1r2" path="res://assets/telephone/new_compressed_texture_2d.tres" id="2_jlfx7"]
+
+[sub_resource type="Gradient" id="Gradient_5rsif"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.42105263, 0.4506579, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.029605264, 0.029605264, 0.029605264, 1, 0.90694845, 0.90694845, 0.90694845, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7kqay"]
+gradient = SubResource("Gradient_5rsif")
+
+[sub_resource type="Gradient" id="Gradient_7kqay"]
+offsets = PackedFloat32Array(0.49342105, 0.82236844, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.9428571, 0.9428571, 0.9428571, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_13xab"]
+gradient = SubResource("Gradient_7kqay")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_iseki")
+shader_parameter/object_texture = ExtResource("2_jlfx7")
+shader_parameter/color_gradient = SubResource("GradientTexture1D_7kqay")
+shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_13xab")

@@ -1,5 +1,7 @@
 shader_type canvas_item;
 
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, repeat_enable, filter_nearest;
+
 uniform sampler2D wave : repeat_enable;
 uniform sampler2D distortion_wave : repeat_enable;
 uniform vec4 shallow_color : source_color = vec4(1.0);
@@ -12,10 +14,13 @@ void fragment() {
 	
 	vec2 uv_distorcida = UV + ruido_distorcao;
 	
-	float onda = texture(wave, uv_distorcida + vec2(sin(TIME * 0.02),sin(TIME * 1.6)* 0.05)).r;
+	float onda = texture(wave, UV).a * 0.1;
 	
-	vec3 cor_da_agua = mix(shallow_color.rgb, deep_color.rgb, onda);
+	vec4 cor_da_agua = mix(shallow_color, deep_color, onda);
 	
-	float textura_do_ruido_com_distorcao = texture(wave, UV ).r;
-	COLOR.rgb = cor_da_agua ;
+	vec2 backGroundUV = SCREEN_UV * uv_distorcida;
+	backGroundUV.x += onda;
+	backGroundUV.y += onda;
+	
+	COLOR= mix(texture(SCREEN_TEXTURE, backGroundUV), cor_da_agua, 0.2) ;
 }
